@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as RegisterImport } from './routes/register'
 import { Route as IndexImport } from './routes/index'
+import { Route as PokimanIdImport } from './routes/pokiman/$id'
 
 // Create/Update Routes
 
@@ -23,6 +24,11 @@ const RegisterRoute = RegisterImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PokimanIdRoute = PokimanIdImport.update({
+  path: '/pokiman/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,6 +50,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterImport
       parentRoute: typeof rootRoute
     }
+    '/pokiman/$id': {
+      id: '/pokiman/$id'
+      path: '/pokiman/$id'
+      fullPath: '/pokiman/$id'
+      preLoaderRoute: typeof PokimanIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -52,36 +65,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/pokiman/$id': typeof PokimanIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/pokiman/$id': typeof PokimanIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/pokiman/$id': typeof PokimanIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/register'
+  fullPaths: '/' | '/register' | '/pokiman/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/register'
-  id: '__root__' | '/' | '/register'
+  to: '/' | '/register' | '/pokiman/$id'
+  id: '__root__' | '/' | '/register' | '/pokiman/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RegisterRoute: typeof RegisterRoute
+  PokimanIdRoute: typeof PokimanIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RegisterRoute: RegisterRoute,
+  PokimanIdRoute: PokimanIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +115,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/register"
+        "/register",
+        "/pokiman/$id"
       ]
     },
     "/": {
@@ -105,6 +124,9 @@ export const routeTree = rootRoute
     },
     "/register": {
       "filePath": "register.tsx"
+    },
+    "/pokiman/$id": {
+      "filePath": "pokiman/$id.tsx"
     }
   }
 }

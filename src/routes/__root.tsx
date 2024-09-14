@@ -1,10 +1,6 @@
 import * as React from 'react'
 import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
-const activeProps = {
-    style : {
-        fontweight : "bold"
-    }
- }
+
 export const Route = createRootRoute({
   component: () => (
     <React.Fragment>
@@ -13,12 +9,12 @@ export const Route = createRootRoute({
         <ul>
             <li>
                 <Link to='/'
-                activeProps={activeProps}
+               
                 >Home</Link>
             </li>
             <li>
                 <Link to='/register'
-                activeProps={activeProps}
+                
                 >Resister</Link>
             </li>
         </ul>
